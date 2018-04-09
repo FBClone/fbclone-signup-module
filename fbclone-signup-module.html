@@ -1,0 +1,85 @@
+<link rel="import" href="bower_components/paper-input/paper-input.html">
+<link rel="import" href="bower_components/paper-button/paper-button.html">
+
+<dom-module id = "fbclone-signup-module">
+    <template>
+        <style>
+            .signUp {
+                margin-left: 5%;
+                margin-right: 5%;
+                margin-bottom: 5%;
+            }
+
+            #signUpForm {
+                border-radius: 15px;
+                width: 25%;
+            }
+
+            #submit {
+                border: 1px black solid;
+                background-color: lightgray;
+            }
+        </style>
+        <div id = "signUpForm">
+            <paper-input
+                    label="First Name"
+                    name="firstName"
+                    class="signUp"
+                    value="{{firstName}}"></paper-input>
+
+            <paper-input
+                    label="Last Name"
+                    name="lastName"
+                    class="signUp"
+                    value="{{lastName}}"></paper-input>
+
+            <paper-input
+                    label="Age"
+                    name="age"
+                    class="signUp"
+                    type="number"
+                    value="{{age}}"></paper-input>
+
+            <paper-input
+                    label="Email"
+                    name="email"
+                    class="signUp"
+                    value="{{email}}"></paper-input>
+
+            <paper-button id="submit">Submit</paper-button>
+        </div>
+    </template>
+
+    <script>
+        Polymer({
+            is: "fbclone-signup-module",
+
+            properties: {
+                firstName: {
+                    type: String,
+                    reflectToAttribute: false,
+                    notify: true
+                },
+
+                lastName: {
+                    type: String,
+                    reflectToAttribute: false,
+                    notify: true
+                },
+
+                age: {
+                    type: Number,
+                    reflectToAttribute: false,
+                    notify: true
+                },
+
+                email: {
+                    type: String,
+                    reflectToAttribute: false,
+                    notify: true
+                }
+
+            }
+        });
+    </script>
+</dom-module>
