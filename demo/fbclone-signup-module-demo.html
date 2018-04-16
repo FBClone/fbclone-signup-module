@@ -1,102 +1,20 @@
-<link rel="import" href="../../bower_components/paper-input/paper-input.html">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../fbclone-signup-module.html">
 
-<dom-module id = "fbclone-signup-module">
+<dom-module id = "fbclone-signup-module-demo">
     <template>
         <style>
-            :host {
-                position: relative;
-                left: 35%;
-            }
 
-            .signUp {
-                margin-left: 5%;
-                margin-right: 5%;
-                margin-bottom: 5%;
-            }
-
-            #signUpForm {
-                width: 25%;
-            }
-
-            #submit {
-                border: 1px black solid;
-                background-color: lightgray;
-                margin-left: 69%;
-                margin-top: 3%;
-            }
         </style>
 
-        <div id = "signUpForm">
-            <paper-input
-                    label="First Name"
-                    id="firstName"
-                    class="signUp"
-                    value="{{firstName}}"></paper-input>
-
-            <paper-input
-                    label="Last Name"
-                    id="lastName"
-                    class="signUp"
-                    value="{{lastName}}"></paper-input>
-
-            <paper-input
-                    label="Age"
-                    id="age"
-                    class="signUp"
-                    type="number"
-                    value="{{age}}"></paper-input>
-
-            <paper-input
-                    label="Email"
-                    id="email"
-                    class="signUp"
-                    value="{{email}}"></paper-input>
-
-            <paper-button id="submit" on-tap="submitForm">Submit</paper-button>
-        </div>
+        <fbclone-signup-module></fbclone-signup-module>
     </template>
 
     <script>
         Polymer({
-            is: "fbclone-signup-module",
+            is: "fbclone-signup-module-demo",
 
             properties: {
-                firstName: {
-                    type: String,
-                    reflectToAttribute: false,
-                    notify: true
-                },
 
-                lastName: {
-                    type: String,
-                    reflectToAttribute: false,
-                    notify: true
-                },
-
-                age: {
-                    type: Number,
-                    reflectToAttribute: false,
-                    notify: true
-                },
-
-                email: {
-                    type: String,
-                    reflectToAttribute: false,
-                    notify: true
-                }
-
-            },
-
-            submitForm: function() {
-                console.log('submit button clicked');
-
-                firebase.database().ref('users/').set({
-                    firstName: this.firstName,
-                    lastName: this.lastName,
-                    age: this.age,
-                    email: this.email
-                });
             }
         });
     </script>

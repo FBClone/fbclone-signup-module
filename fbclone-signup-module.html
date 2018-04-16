@@ -80,17 +80,36 @@
                 email: {
                     type: String,
                     notify: true
-                },
-
-                fbapp: {
-                    type: Object,
-                    notify: true
                 }
 
             },
 
             submitForm: function() {
-                console.log('fbapp content: ' + fbapp);
+
+                var package = {
+                    'contact': {
+                        'first_name': this.firstName,
+                        'last_name': this.lastName,
+                        'age': this.age,
+                        'email': this.email
+                    }
+                };
+
+                var req = new XMLHttpRequest();
+                req.open('POST', 'https://fbclone-c6f27.firebaseio.com' + '/users');
+                req.setRequestHeader('Content-Type', 'application/json');
+
+                req.onload = function() {
+                    if (req.status === 200 || req.status === 204 || req.status === 304) {
+                        console.log('successful firebase submission');
+                    } else if (req.status >= 400 && req.status < 500) {
+                        console.log('error with submission');
+                    } else if (req.status >= 500 && req.status < 600) {
+                        console.log('server error');
+                    }
+                };
+
+                req.send(JSON.stringify(package));
             }
         });
     </script>
