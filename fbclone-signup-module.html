@@ -80,12 +80,17 @@
                 email: {
                     type: String,
                     notify: true
+                },
+
+                fbapp: {
+                    type: object,
+                    notify: true
                 }
 
             },
 
             submitForm: function() {
-                console.log('submit button clicked');
+                console.log('fbapp content: ' + fbapp);
             }
         });
     </script>
