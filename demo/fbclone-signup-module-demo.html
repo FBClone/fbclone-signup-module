@@ -64,21 +64,25 @@
             properties: {
                 firstName: {
                     type: String,
+                    reflectToAttribute: false,
                     notify: true
                 },
 
                 lastName: {
                     type: String,
+                    reflectToAttribute: false,
                     notify: true
                 },
 
                 age: {
                     type: Number,
+                    reflectToAttribute: false,
                     notify: true
                 },
 
                 email: {
                     type: String,
+                    reflectToAttribute: false,
                     notify: true
                 }
 
@@ -86,6 +90,13 @@
 
             submitForm: function() {
                 console.log('submit button clicked');
+
+                firebase.database().ref('users/').set({
+                    firstName: this.firstName,
+                    lastName: this.lastName,
+                    age: this.age,
+                    email: this.email
+                });
             }
         });
     </script>
