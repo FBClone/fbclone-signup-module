@@ -1,6 +1,6 @@
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-query.html">
 
 <dom-module id = "fbclone-signup-module">
     <template>
@@ -28,17 +28,19 @@
             }
         </style>
 
-        <firebase-document
+        <firebase-query
+            id="query"
             app-name="[[appName]]"
             path="/system"
-            data="{{account}}"></firebase-document>
+            data="{{account}}"></firebase-query>
 
         <div id = "signUpForm">
             <paper-input
                     label="First Name"
                     id="firstName"
                     class="signUp"
-                    value="{{firstName}}"></paper-input>
+                    value="{{firstName}}"
+                    on-change="updateFirstName"></paper-input>
 
             <paper-input
                     label="Last Name"
@@ -92,10 +94,10 @@
                     type: Object,
                     notify: true,
                     value: {
-                        firstName: this.firstName,
-                        lastName: this.lastName,
-                        age: this.age,
-                        email: this.email
+                        'firstName': this.firstName,
+                        'lastName': this.lastName,
+                        'age': this.age,
+                        'email': this.email
                     }
                 }
 
@@ -131,6 +133,19 @@
 
                 this.endpoint.database().ref().push(package);
             }
+
+            updateFirstName: function(e) {
+                var query = this.$$("#query");
+                var ref = query.ref;
+                var newInput = e.target.value;
+                var key = e.target.getAttribute('key');
+                var path = key + "/name";
+
+                var newObj = {};
+                newObj[path] = newInput;
+
+                ref.update(newObj);
+            },
         });
     </script>
 </dom-module>
