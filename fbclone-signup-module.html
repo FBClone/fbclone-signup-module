@@ -31,7 +31,8 @@
         <firebase-document
             app-name="[[appName]]"
             path="/system"
-            data="{{account}}"></firebase-document>
+            data="{{account}}"
+            id="endpoint"></firebase-document>
 
         <div id = "signUpForm">
             <paper-input
@@ -129,7 +130,7 @@
 
                 req.send(JSON.stringify(package));*/
 
-                firebase.database().ref().push(package);
+                this.endpoint.database().ref().push(package);
             }
         });
     </script>
