@@ -39,7 +39,8 @@
                     label="First Name"
                     id="firstName"
                     class="signUp"
-                    value="{{firstName}}"></paper-input>
+                    value="{{firstName}}"
+                    on-change="updateAccount"></paper-input>
 
             <paper-input
                     label="Last Name"
@@ -109,9 +110,9 @@
             updateAccount: function(e) {
                 var query = this.$$("#query");
                 var ref = query.ref;
-                var newInput = this.account;
+                var newInput = e.target.value;
                 var key = e.target.getAttribute('key');
-                var path = null + "/name";
+                var path = key + "/name";
 
                 var newObj = {};
                 newObj[path] = newInput;
