@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "paper-input": "^2.2.2",
-    "paper-button": "^2.1.0"
+    "paper-button": "^2.1.0",
+    "polymerfire": "^2.2.1"
   }
 }

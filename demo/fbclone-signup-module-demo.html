@@ -1,3 +1,5 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-app.html">
 <link rel="import" href="../fbclone-signup-module.html">
 
 <dom-module id = "fbclone-signup-module-demo">
@@ -6,7 +8,18 @@
 
         </style>
 
-        <fbclone-signup-module></fbclone-signup-module>
+        <firebase-app
+            id="fbApp"
+            name="[[appName]]"
+            api-key="AIzaSyDatjYxZXgqp2WkP1jtycDsgbrmOIVBL4Q"
+            database-url="https://fbclone-c6f27.firebaseio.com"
+            auth-domain="fbclone-c6f27.firebaseapp.com"
+            storage-bucket="fbclone-c6f27.appspot.com"
+            messaging-sender-id="284119776532">
+        </firebase-app>
+
+        <fbclone-signup-module
+            app-name="fbcDB"></fbclone-signup-module>
     </template>
 
     <script>
@@ -14,7 +27,12 @@
             is: "fbclone-signup-module-demo",
 
             properties: {
-
+                appName: {
+                    type: String,
+                    notify: true,
+                    readOnly: true,
+                    value: "fbcDB"
+                }
             }
         });
     </script>
