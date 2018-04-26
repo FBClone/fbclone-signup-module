@@ -39,8 +39,7 @@
                     label="First Name"
                     id="firstName"
                     class="signUp"
-                    value="{{firstName}}"
-                    on-change="updateFirstName"></paper-input>
+                    value="{{firstName}}"></paper-input>
 
             <paper-input
                     label="Last Name"
@@ -61,7 +60,7 @@
                     class="signUp"
                     value="{{email}}"></paper-input>
 
-            <paper-button id="submit" on-tap="submitForm">Submit</paper-button>
+            <paper-button id="submit" on-tap="updateAccount">Submit</paper-button>
         </div>
     </template>
 
@@ -104,40 +103,13 @@
             },
 
             submitForm: function() {
-
-                var package = {
-                    'contact': {
-                        'first_name': this.firstName,
-                        'last_name': this.lastName,
-                        'age': this.age,
-                        'email': this.email
-                    }
-                };
-
-                /*
-                var req = new XMLHttpRequest();
-                req.open('POST', 'https://fbclone-c6f27.firebaseio.com' + '/users');
-                req.setRequestHeader('Content-Type', 'application/json');
-
-                req.onload = function() {
-                    if (req.status === 200 || req.status === 204 || req.status === 304) {
-                        console.log('successful firebase submission');
-                    } else if (req.status >= 400 && req.status < 500) {
-                        console.log('error with submission');
-                    } else if (req.status >= 500 && req.status < 600) {
-                        console.log('server error');
-                    }
-                };
-
-                req.send(JSON.stringify(package));*/
-
-                this.endpoint.database().ref().push(package);
+                this.fire('submit');
             },
 
-            updateFirstName: function(e) {
+            updateAccount: function(e) {
                 var query = this.$$("#query");
                 var ref = query.ref;
-                var newInput = e.target.value;
+                var newInput = this.account;
                 var key = e.target.getAttribute('key');
                 var path = key + "/name";
 
