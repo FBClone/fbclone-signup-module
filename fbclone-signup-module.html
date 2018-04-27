@@ -1,6 +1,6 @@
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-query.html">
 
 <dom-module id = "fbclone-signup-module">
     <template>
@@ -17,7 +17,11 @@
             }
 
             #signUpForm {
-                width: 25%;
+                width: 320px;
+                border: 1px black solid;
+                border-radius: 30px;
+                height: 385px;
+                background: lightcyan;
             }
 
             #submit {
@@ -28,38 +32,44 @@
             }
         </style>
 
-        <firebase-document
+        <firebase-query
+            id="query"
             app-name="[[appName]]"
-            path="/system"
-            data="{{account}}"></firebase-document>
+            path="/system/users"
+            data="{{data}}">
+        </firebase-query>
 
         <div id = "signUpForm">
             <paper-input
                     label="First Name"
                     id="firstName"
                     class="signUp"
-                    value="{{firstName}}"></paper-input>
+                    value="{{firstName}}">
+            </paper-input>
 
             <paper-input
                     label="Last Name"
                     id="lastName"
                     class="signUp"
-                    value="{{lastName}}"></paper-input>
+                    value="{{lastName}}">
+            </paper-input>
 
             <paper-input
                     label="Age"
                     id="age"
                     class="signUp"
                     type="number"
-                    value="{{age}}"></paper-input>
+                    value="{{age}}">
+            </paper-input>
 
             <paper-input
                     label="Email"
                     id="email"
                     class="signUp"
-                    value="{{email}}"></paper-input>
+                    value="{{email}}">
+            </paper-input>
 
-            <paper-button id="submit" on-tap="submitForm">Submit</paper-button>
+            <paper-button id="submit" on-tap="updateAccount">Submit</paper-button>
         </div>
     </template>
 
@@ -88,45 +98,29 @@
                     notify: true
                 },
 
-                account: {
-                    type: Object,
-                    notify: true,
-                    value: {
-                        firstName: this.firstName,
-                        lastName: this.lastName,
-                        age: this.age,
-                        email: this.email
-                    }
+                data: {
+                    type: Array,
+                    notify: true
                 }
-
             },
 
-            submitForm: function() {
+            updateAccount: function() {
+                var query = this.$$("#query");
+                var ref = query.ref;
 
-                var package = {
-                    'contact': {
-                        'first_name': this.firstName,
-                        'last_name': this.lastName,
-                        'age': this.age,
-                        'email': this.email
-                    }
+                var newUser = {
+                    firstName: this.firstName,
+                    lastName: this.lastName,
+                    age: this.age,
+                    email: this.email
                 };
 
-                var req = new XMLHttpRequest();
-                req.open('POST', 'https://fbclone-c6f27.firebaseio.com' + '/users');
-                req.setRequestHeader('Content-Type', 'application/json');
+                ref.push(newUser);
 
-                req.onload = function() {
-                    if (req.status === 200 || req.status === 204 || req.status === 304) {
-                        console.log('successful firebase submission');
-                    } else if (req.status >= 400 && req.status < 500) {
-                        console.log('error with submission');
-                    } else if (req.status >= 500 && req.status < 600) {
-                        console.log('server error');
-                    }
-                };
-
-                req.send(JSON.stringify(package));
+                this.$$('#firstName').value = null;
+                this.$$('#lastName').value = null;
+                this.$$('#age').value = null;
+                this.$$('#email').value = null;
             }
         });
     </script>
