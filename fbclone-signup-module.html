@@ -27,8 +27,17 @@
             #submit {
                 border: 1px black solid;
                 background-color: lightgray;
-                margin-left: 69%;
-                margin-top: 3%;
+                position: relative;
+                left: 110px;
+                top: 6px;
+            }
+
+            #back {
+                border: 1px black solid;
+                background-color: lightgray;
+                position: relative;
+                top: 6px;
+                left: 20px;
             }
         </style>
 
@@ -69,6 +78,7 @@
                     value="{{email}}">
             </paper-input>
 
+            <paper-button id="back" on-tap="closeUserForm">Back</paper-button>
             <paper-button id="submit" on-tap="updateAccount">Submit</paper-button>
         </div>
     </template>
@@ -121,6 +131,10 @@
                 this.$$('#lastName').value = null;
                 this.$$('#age').value = null;
                 this.$$('#email').value = null;
+            },
+
+            closeUserForm: function() {
+                this.fire('user-window-closed');
             }
         });
     </script>
